@@ -14,3 +14,11 @@ footer{
 li{
     list-style:none;
 }
+
+p.nomal{
+    word-wrap: break-word;
+}
+
+p.break{
+    word-wrap: break-word;
+}
