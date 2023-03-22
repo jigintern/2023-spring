@@ -1,0 +1,49 @@
+body {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+.post {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.form-table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input {
+    font-size: 20px;
+    margin: 20px;
+    border-radius: 3px;
+    min-height: 30px;
+    min-width: 600px;
+}
+
+
+
+.button {
+    display: flex;
+    justify-content: right;
+    margin: 20px;
+}
+
+.send-button {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+#detail {
+    min-height: 100px;
+}
+
+h1 {
+    font-size: 40px;
+}
