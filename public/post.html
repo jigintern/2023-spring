@@ -94,10 +94,12 @@
         const detail = document.getElementById("detail");
         const overView = document.getElementById("overview");
 
+        // AIおまかせボタンのクリックイベント
+        // KEYWORDとOVERVIEWをサーバーに送って、AI紹介文を受け取る
         aiButton.addEventListener("click", (e) => {
             const words = keyWords.value;
             e.preventDefault();
-            if(words&&overview){
+            if (words && overview) {
                 // detail.setAttribute("disabled", true);
                 keyWords.value = "考え中";
                 detail.value = words;
@@ -106,15 +108,15 @@
 
 
 
-        document.querySelector("#send-button").onclick = (e) =>{
+        document.querySelector("#send-button").onclick = (e) => {
             e.preventDefault();
-            if(date.value&&title.value&&name.value&&detail.value){
+            if (date.value && title.value && name.value && detail.value) {
                 console.log("ありました");
-            }else{
+            } else {
                 alert("赤文字のところを全て入力してください");
             }
-        } 
-        
+        }
+
 
         // document.querySelector("#ai-button").onclick = async(event) => {
         //     await fetch("/hogehoge", {
