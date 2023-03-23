@@ -18,7 +18,7 @@
                 <tr>
                     <th>
                         <label for="title" class="must">
-                            Title
+                            タイトル
                         </label>
                     </th>
                     <td>
@@ -28,7 +28,7 @@
                 <tr>
                     <th>
                         <label for="date" class="must">
-                            Date
+                            開催日時
                         </label>
                     </th>
                     <td>
@@ -38,7 +38,7 @@
                 <tr>
                     <th>
                         <label for="name" class="must">
-                            Name
+                            お名前
                         </label>
                     </th>
                     <td>
@@ -48,7 +48,7 @@
                 <tr>
                     <th>
                         <label for="key-word">
-                            Overview
+                            概要
                         </label>
                     </th>
                     <td>
@@ -58,28 +58,28 @@
                 <tr>
                     <th>
                         <label for="key-word">
-                            Keyword
+                            キーワード
                         </label>
                     </th>
                     <td>
                         <input class="input" type="text" id="key-word" placeholder="例）新入生歓迎　サッカー部　食べ放題">
-                        <button id="ai-button">AIにお任せ</button>
+                        <button id="ai-button" class="ai-button">AIにお任せ</button>
                     </td>
                 </tr>
                 <tr>
                     <th>
                         <label for="detail" class="must">
-                            Detail
+                            詳細
                         </label>
                     </th>
                     <td>
                         <textarea class="input" id="detail" cols="30" rows="10"
-                            placeholder="詳細の部分は手書きでも構いません。もし文章が思いつかなくてAIに書いてもらいたいときはkeywordとoverviewに言葉をいれ'AIにお任せ'というボタンを押すと自動で詳細の文章を作ってくれます。"></textarea>
+                            placeholder="詳細の部分は手書きでも構いません。もし文章が思いつかなくてAIに書いてもらいたいときは概要とキーワードに言葉をいれ'AIにお任せ'というボタンを押すと自動で詳細の文章を作ってくれます。"></textarea>
                     </td>
                 </tr>
             </table>
             <div class="button">
-                <button class="send-button" id="send-button">SEND</button>
+                <button class="send-button" id="send-button">投稿</button>
             </div>
         </form>
     </div>
@@ -95,17 +95,17 @@
         const overView = document.getElementById("overview");
 
         aiButton.addEventListener("click", (e) => {
-            const words = keyWords.value;
             e.preventDefault();
-            if(words&&overview){
-                // detail.setAttribute("disabled", true);
-                keyWords.value = "考え中";
-                detail.value = words;
+            if(keyWords.value&&overView.value){
+                detail.setAttribute("disabled", true);
+                detail.value = "考え中。。。。。";
+                // setTimeout(console.log("2秒経過しました"), 2000);
+                // detail.removeAttribute("disabled");
             }
         });
 
 
-
+        //必要事項が入っているかいないかをチェック
         document.querySelector("#send-button").onclick = (e) =>{
             e.preventDefault();
             if(date.value&&title.value&&name.value&&detail.value){
@@ -115,12 +115,12 @@
             }
         } 
         
-
+        //サーバーと互換性をつけるときに使ってください
         // document.querySelector("#ai-button").onclick = async(event) => {
-        //     await fetch("/hogehoge", {
+        //     await fetch("/translate-ai", {
         //     method: "POST",
         //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify({ nextWord:"りんご", fullword })
+        //     body: JSON.stringify({ keyWords.value, overView.value })
         // });
         // }
     </script>
