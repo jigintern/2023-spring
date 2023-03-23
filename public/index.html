@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="index.css">
@@ -73,9 +74,19 @@
         postDescription.classList.add("post-description");
         listItem.appendChild(postDescription);
 
+        const joinButton = document.createElement("button");
+        joinButton.textContent = "参加します";
+        joinButton.classList.add("join-button");
+        listItem.appendChild(joinButton);
+
+        postButton.addEventListener("click", () => {
+          postButton.disabled = true;
+        });
+
         listItem.classList.add("post");
         postList.appendChild(listItem);
     });
 </script>
 </body>
+
 </html>

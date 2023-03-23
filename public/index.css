@@ -91,6 +91,22 @@ main {
     color: #aaa;
 }
 
+.join-button {
+    background-color: #003366;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.join-button:hover {
+    background-color: #002c52;
+}
+
 /* Footer styles */
 footer {
     background-color: #003366;

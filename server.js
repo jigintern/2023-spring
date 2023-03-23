@@ -16,15 +16,14 @@ serve(async (req) => {
 
   if (req.method === "POST" && pathname === "/translate-ai") {
     const requestJson = await req.json();
-    const requestObject = requestJson.object;
-    const requestKeyWords = requestJson.keywords;
+    const overview = requestJson.overview;
+    const keyword = requestJson.keyword;
     let resp = null;
     try {
       resp = await fetchChat(
-        `${requestKeyWords}というキーワードがあてはまる人を集めた${requestObject}を開こうとしています。
-        この${requestObject}の紹介文を200字程度で教えてください。ただし、キーワードの説明を中心に、その他の説明はできるだけ省くようにしてください。`
+        `${keyword}というキーワードがあてはまる人を集めた${overview}を開こうとしています。
+        この${overview}の紹介文を200字程度で教えてください。ただし、キーワードの説明を中心に、その他の説明はできるだけ省くようにしてください。`
       );
-
     } catch (error) {
       console.error("Error while processing chat request:", error);
       return new Response("Error: " + error.message, { status: 500 });
