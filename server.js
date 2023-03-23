@@ -12,8 +12,13 @@ serve(async (req) => {
   console.log(pathname);
 
   if (req.method === "GET" && pathname === "/welcome-message") {
-    let resp = await fetchChat('今日は何の日ですか？');
     return new Response(resp);
+  }
+
+  if (req.method === "POST" && pathname === "/translate-ai") {
+    const requestJson = await req.json();
+    const resp = await fetchChat(requestJson);
+    return new Response(resp)
   }
 
   return serveDir(req, {
