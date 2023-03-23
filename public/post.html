@@ -11,73 +11,110 @@
 
 <body>
     <div id="post">
-        <h1>投稿フォーム</h1>
+        <h1>投稿したい内容を書き込んでください</h1>
+        <h2>赤文字の部分は必須項目となります</h2>
         <form action="" class="form">
             <table class="form-table">
                 <tr>
                     <th>
-                        <label for="title">
-                            TITLE
+                        <label for="title" class="must">
+                            Title
                         </label>
                     </th>
                     <td>
-                        <input class="input" size="20" type="text" id="title" placeholder="タイトルは20文字以内でお願いします!">
+                        <input class="input" size="20" type="text" id="title" placeholder="例）友達100人作りましょう！！">
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        <label for="name">
-                            NAME
+                        <label for="date" class="must">
+                            Date
                         </label>
                     </th>
                     <td>
-                        <input class="input" type="text" id="name" placeholder="jig大学　jp学部　代表日本太郎">
+                        <input class="input" type="date" id="date">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="name" class="must">
+                            Name
+                        </label>
+                    </th>
+                    <td>
+                        <input class="input" type="text" id="name" placeholder="例）jig大学　jp学部　代表日本太郎">
                     </td>
                 </tr>
                 <tr>
                     <th>
                         <label for="key-word">
-                            KEYWORD
+                            Overview
                         </label>
                     </th>
                     <td>
-                        <input class="input" type="text" id="key-word" placeholder="新入生歓迎　サッカー部　食べ放題">
+                        <input class="input" type="text" id="overview" placeholder="例）焼肉食べ放題">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="key-word">
+                            Keyword
+                        </label>
+                    </th>
+                    <td>
+                        <input class="input" type="text" id="key-word" placeholder="例）新入生歓迎　サッカー部　食べ放題">
                         <button id="ai-button">AIにお任せ</button>
                     </td>
                 </tr>
                 <tr>
                     <th>
-                        <label for="detail">
-                            DETAIL
+                        <label for="detail" class="must">
+                            Detail
                         </label>
                     </th>
                     <td>
                         <textarea class="input" id="detail" cols="30" rows="10"
-                            placeholder="ここの部分は手書きでも構いません。もし文章が思いつかなくてAIに書いてもらいたいときはキーワードをいれ'AIにお任せ'というボタンを押すと自動で詳細の文章を作ってくれます。"></textarea>
+                            placeholder="詳細の部分は手書きでも構いません。もし文章が思いつかなくてAIに書いてもらいたいときはkeywordとoverviewに言葉をいれ'AIにお任せ'というボタンを押すと自動で詳細の文章を作ってくれます。"></textarea>
                     </td>
                 </tr>
             </table>
             <div class="button">
-                <button class="send-button">SEND</button>
+                <button class="send-button" id="send-button">SEND</button>
             </div>
         </form>
     </div>
     <hr>
 
     <script type="module">
-        const key_word_button = document.getElementById("ai-button");
-        const keywords = document.getElementById("key-word");
+        const aiButton = document.getElementById("ai-button");
+        const keyWords = document.getElementById("key-word");
+        const date = document.getElementById("date");
+        const title = document.getElementById("title");
+        const name = document.getElementById("name");
         const detail = document.getElementById("detail");
+        const overView = document.getElementById("overview");
 
-        key_word_button.addEventListener("click", (e) => {
-            const words = keywords.value;
+        aiButton.addEventListener("click", (e) => {
+            const words = keyWords.value;
             e.preventDefault();
-            if(words){
-                console.log(words);
-                keywords.value = "";
+            if(words&&overview){
+                // detail.setAttribute("disabled", true);
+                keyWords.value = "考え中";
                 detail.value = words;
             }
         });
+
+
+
+        document.querySelector("#send-button").onclick = (e) =>{
+            e.preventDefault();
+            if(date.value&&title.value&&name.value&&detail.value){
+                console.log("ありました");
+            }else{
+                alert("赤文字のところを全て入力してください");
+            }
+        } 
+        
 
         // document.querySelector("#ai-button").onclick = async(event) => {
         //     await fetch("/hogehoge", {

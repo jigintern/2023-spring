@@ -3,7 +3,7 @@ body {
     margin-right: auto;
 }
 
-h1 {
+h1, h2 {
     text-align: center;
 }
 
@@ -44,6 +44,7 @@ h1 {
     min-height: 100px;
 }
 
-h1 {
-    font-size: 40px;
+
+.must {
+    color: rgb(226, 62, 62);
 }
