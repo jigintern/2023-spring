@@ -76,14 +76,14 @@ main {
     margin-bottom: 10px;
 }
 
-.post-data,
+.post-date,
 .post-name,
 .post-description {
     font-size: 16px;
     margin-bottom: 10px;
 }
 
-.post-data::before,
+.post-date::before,
 .post-name::before,
 .post-description::before {
     content: '\00BB';
