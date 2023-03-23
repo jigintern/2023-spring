@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="post.css">
     <title>Document</title>
 </head>
+
 <body>
     <div id="post">
         <h1>投稿フォーム</h1>
@@ -19,7 +21,7 @@
                         </label>
                     </th>
                     <td>
-                        <input class="input" size="20" type="text" id="title">
+                        <input class="input" size="20" type="text" id="title" placeholder="タイトルは20文字以内でお願いします!">
                     </td>
                 </tr>
                 <tr>
@@ -29,7 +31,18 @@
                         </label>
                     </th>
                     <td>
-                        <input class="input" type="text" id="name">
+                        <input class="input" type="text" id="name" placeholder="jig大学　jp学部　代表日本太郎">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="key-word">
+                            KEYWORD
+                        </label>
+                    </th>
+                    <td>
+                        <input class="input" type="text" id="key-word" placeholder="新入生歓迎　サッカー部　食べ放題">
+                        <button id="ai-button">AIにお任せ</button>
                     </td>
                 </tr>
                 <tr>
@@ -39,7 +52,8 @@
                         </label>
                     </th>
                     <td>
-                        <textarea class="input" name="detail" id="" cols="30" rows="10"></textarea>
+                        <textarea class="input" id="detail" cols="30" rows="10"
+                            placeholder="ここの部分は手書きでも構いません。もし文章が思いつかなくてAIに書いてもらいたいときはキーワードをいれ'AIにお任せ'というボタンを押すと自動で詳細の文章を作ってくれます。"></textarea>
                     </td>
                 </tr>
             </table>
@@ -49,5 +63,30 @@
         </form>
     </div>
     <hr>
+
+    <script type="module">
+        const key_word_button = document.getElementById("ai-button");
+        const keywords = document.getElementById("key-word");
+        const detail = document.getElementById("detail");
+
+        key_word_button.addEventListener("click", (e) => {
+            const words = keywords.value;
+            e.preventDefault();
+            if(words){
+                console.log(words);
+                keywords.value = "";
+                detail.value = words;
+            }
+        });
+
+        // document.querySelector("#ai-button").onclick = async(event) => {
+        //     await fetch("/hogehoge", {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({ nextWord:"りんご", fullword })
+        // });
+        // }
+    </script>
 </body>
+
 </html>
