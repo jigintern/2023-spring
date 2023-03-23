@@ -1,7 +1,7 @@
 // deno-lint-ignore-file
 import { fetchChat } from "https://code4fukui.github.io/ai_chat/fetchChat.js";
 import { config } from "https://deno.land/std@0.167.0/dotenv/mod.ts";
-import { serveDir } from "https://deno.land/std@0.180.0/http/file_server.ts";
+import { serveDir, serveFile } from "https://deno.land/std@0.180.0/http/file_server.ts";
 import { serve } from "https://deno.land/std@0.180.0/http/server.ts";
 import { test } from "./test.js";
 
@@ -37,7 +37,7 @@ serve(async (req) => {
   }
 
   if (pathname === "/test.js") {
-    return serveDir(req, { fsRoot: "", urlRoot: "", enableCors: true, })
+    return serveFile(req, "./test.js");
   }
 
   return serveDir(req, {
