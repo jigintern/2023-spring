@@ -28,7 +28,7 @@
     //更新時にDBにリクエストしてデータをpostに追加する
 
     //モック：仮に作ったデータ
-    const posts = [
+    let posts = [
         {
             title: "投稿1のタイトル",
             data: "2023/03/22",
@@ -79,9 +79,24 @@
         joinButton.classList.add("join-button");
         listItem.appendChild(joinButton);
 
-        joinButton.addEventListener("click", () => {
-            joinButton.disabled = true;
-        });
+        joinButton.addEventListener("click", async () => {
+            //postの持つidを取得
+            post.id;
+//DBにリクエスト
+            joinButton.addEventListener("click", async () => {
+                joinButton.style.backgroundColor = "green";
+                joinButton.textContent = "参加しました";
+
+                const response = await fetch("/add-participants", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ "id": post.id })
+                })
+
+                //更新されたPost一覧取得
+                posts = await response.json();
+                //更新されたPost一覧を表示
+            });
 
         listItem.classList.add("post");
         postList.appendChild(listItem);
