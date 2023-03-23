@@ -26,26 +26,37 @@
 
 <script>
     //更新時にDBにリクエストしてデータをpostに追加する
+    window.onload = async () => {
+        const response = await fetch("/get-posts");
+        posts = await response.json();
+        console.log(posts);
+    }
 
     //モック：仮に作ったデータ
     const posts = [
         {
-            title: "投稿1のタイトル",
-            data: "2023/03/22",
-            name: "田中太郎",
-            description: "ここでパーティをします！"
+            // id: "1",
+            // title: "投稿1のタイトル",
+            // data: "2023/03/22",
+            // name: "田中太郎",
+            // description: "ここでパーティをします！",
+            // participants: "0"
         },
         {
-            title: "投稿2のタイトル",
-            data: "2023/03/23",
-            name: "山田花子",
-            description: "ここでパーティをします！"
+            // id: "2",
+            // title: "投稿2のタイトル",
+            // data: "2023/03/23",
+            // name: "山田花子",
+            // description: "ここでパーティをします！",
+            // participants: "0"
         },
         {
-            title: "投稿3のタイトル",
-            data: "2023/03/24",
-            name: "佐藤次郎",
-            description: "ここでパーティをします！"
+            // id: "3",
+            // title: "投稿3のタイトル",
+            // data: "2023/03/24",
+            // name: "佐藤次郎",
+            // description: "ここでパーティをします！",
+            // participants: "0"
         }
     ];
 
@@ -79,8 +90,18 @@
         joinButton.classList.add("join-button");
         listItem.appendChild(joinButton);
 
-        joinButton.addEventListener("click", () => {
-            joinButton.disabled = true;
+        joinButton.addEventListener("click", async () => {
+            joinButton.style.backgroundColor = "green";
+            joinButton.textContent = "参加しました";
+
+            const response = await fetch("/add-participants", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ "id": post.id })
+            })
+
+            //更新されたPost一覧取得
+            posts = await response.json();
         });
 
         listItem.classList.add("post");
