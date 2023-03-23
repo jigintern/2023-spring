@@ -52,9 +52,13 @@ serve(async (req) => {
         const requestJson = await req.json();
         //ランダムなIDを生成する
         const id = uuidv4();
+        //タイトル
         const title = requestJson.title;
+        //日付
         const data = requestJson.data;
+        //名前
         const name = requestJson.name;
+        //詳細
         const description = requestJson.discrption;
         //デフォルトは0
         const participants = 0;
@@ -67,8 +71,10 @@ serve(async (req) => {
     //POST /add-participants
     //参加者を1増やす
     if (req.method === "POST" && pathname === "/add-participants") {
-        const u = new URL(req.url);
-        const id = u.searchParams.get("id");
+        //リクエストボディを取得する
+        const requestJson = await req.json();
+        //idを取得する
+        const id = requestJson.id;
         //postsの中からidが一致するものを探す
         const post = posts.find((post) => post.id === id);
         //postの持つparticipantsを1増やす
