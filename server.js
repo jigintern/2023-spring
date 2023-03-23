@@ -19,10 +19,11 @@ serve(async (req) => {
     const overview = requestJson.overview;
     const keyword = requestJson.keyword;
     let resp = null;
+    console.log("postしました");
     try {
       resp = await fetchChat(
         `${keyword}というキーワードがあてはまる人を集めた${overview}を開こうとしています。
-        この${overview}の紹介文を200字程度で教えてください。ただし、キーワードの説明を中心に、その他の説明はできるだけ省くようにしてください。`
+        この${overview}の紹介文を200字程度で教えてください。ただし、キーワードの説明を中心に、その他の説明はできるだけ省くようにしてください。`,
       );
     } catch (error) {
       console.error("Error while processing chat request:", error);
@@ -31,6 +32,7 @@ serve(async (req) => {
     if (resp !== null) {
       return new Response(resp);
     }
+
   }
 
   return serveDir(req, {
