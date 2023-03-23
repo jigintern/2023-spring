@@ -25,40 +25,39 @@
 </footer>
 
 <script>
+    //投稿板欄が入った配列
+    let posts = [{
+        id: "1",
+        title: "投稿1のタイトル",
+        date: "2023/03/22",
+        name: "田中太郎",
+        description: "ここでパーティをします！",
+        participants: "0"
+    },
+    {
+        id: "2",
+        title: "投稿2のタイトル",
+        date: "2023/03/23",
+        name: "山田花子",
+        description: "ここでパーティをします！",
+        participants: "0"
+    },
+    {
+        id: "3",
+        title: "投稿3のタイトル",
+        date: "2023/03/24",
+        name: "佐藤次郎",
+        description: "ここでパーティをします！",
+        participants: "0"
+    }];
+
     //更新時にDBにリクエストしてデータをpostに追加する
     window.onload = async () => {
         const response = await fetch("/get-posts");
+        console.log(response);
         posts = await response.json();
         console.log(posts);
     }
-
-    //モック：仮に作ったデータ
-    const posts = [
-        {
-            // id: "1",
-            // title: "投稿1のタイトル",
-            // data: "2023/03/22",
-            // name: "田中太郎",
-            // description: "ここでパーティをします！",
-            // participants: "0"
-        },
-        {
-            // id: "2",
-            // title: "投稿2のタイトル",
-            // data: "2023/03/23",
-            // name: "山田花子",
-            // description: "ここでパーティをします！",
-            // participants: "0"
-        },
-        {
-            // id: "3",
-            // title: "投稿3のタイトル",
-            // data: "2023/03/24",
-            // name: "佐藤次郎",
-            // description: "ここでパーティをします！",
-            // participants: "0"
-        }
-    ];
 
     const postList = document.querySelector(".post-list");
 
