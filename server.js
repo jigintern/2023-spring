@@ -59,15 +59,15 @@ serve(async (req) => {
         //タイトル
         const title = requestJson.title;
         //日付
-        const data = requestJson.data;
+        const date = requestJson.data;
         //名前
         const name = requestJson.name;
         //詳細
-        const description = requestJson.discrption;
+        const description = requestJson.description;
         //デフォルトは0
         const participants = 0;
         // リクエストボディをpostsに追加する
-        posts.push({id, title, data, name, description, participants});
+        posts.push({id, title, date, name, description, participants});
         // 更新されたpostsを返す
 
         return new Response(JSON.stringify(posts), {
