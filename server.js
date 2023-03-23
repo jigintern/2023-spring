@@ -42,7 +42,11 @@ serve(async (req) => {
     //投稿を全件取得
     if (req.method === "GET" && pathname === "/get-posts") {
         // そうじゃない場合は全件返す
-        return new Response(posts);
+        return new Response( JSON.stringify(posts), {
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            }
+        });
     }
 
     //POST /register-post
@@ -65,7 +69,13 @@ serve(async (req) => {
         // リクエストボディをpostsに追加する
         posts.push({id, title, data, name, description, participants});
         // 更新されたpostsを返す
-        return new Response(posts);
+
+        return new Response(JSON.stringify(posts), {
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                }
+            }
+        );
     }
 
     //POST /add-participants
@@ -79,8 +89,14 @@ serve(async (req) => {
         const post = posts.find((post) => post.id === id);
         //postの持つparticipantsを1増やす
         post.participants += 1;
-        //更新されたpostsを返す
-        return new Response(posts);
+        //更新されたpostsをjsonで返す
+        return new Response(
+            JSON.stringify(posts), {
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                }
+            }
+        );
     }
 
     return serveDir(req, {
