@@ -43,3 +43,4 @@ export const fetchChat = async (prompt) => {
   );
   return answer;
 };
+

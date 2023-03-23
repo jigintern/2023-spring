@@ -42,3 +42,4 @@ serve(async (req) => {
     enableCors: true,
   });
 });
+
