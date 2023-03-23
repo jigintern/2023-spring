@@ -1,82 +1,92 @@
 <!DOCTYPE html>
-<html>
 
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="index.css">
-  <title>タイトル</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="index.css">
+    <title>タイトル</title>
 </head>
-
-<body>
 <header>
-  <h1>タイトル</h1>
+    <h1>タイトル</h1>
 </header>
+<section class="about">
+    <h2>このサイトについて</h2>
+    <p class="description">
+        当サイトでは、新入生の皆さんを対象とした新歓イベント情報を提供しています。各サークルや部活動、学生団体のイベント情報が盛りだくさん！楽しいイベントや興味深い活動を見つけて、新たな仲間と出会いましょう。
+        サイトの投稿リストには、各イベントのタイトル、主催団体の名前、そして簡単な紹介文が掲載されています。興味を持ったイベントがあれば、詳細ページにアクセスして、イベントの日時や場所、参加方法などを確認してください。新たな一歩を踏み出して、素晴らしい大学生活をスタートさせましょう！
+    </p>
+</section>
+<section class="posts">
+    <h2>最新のイベント</h2>
+    <ul class="post-list"></ul>
+</section>
 
-<main>
-  <h2>このサイトについて</h2>
-  <p class="description">
-    当サイトでは、新入生の皆さんを対象とした新歓イベント情報を提供しています。各サークルや部活動、学生団体のイベント情報が盛りだくさん！楽しいイベントや興味深い活動を見つけて、新たな仲間と出会いましょう。
-    サイトの投稿リストには、各イベントのタイトル、主催団体の名前、そして簡単な紹介文が掲載されています。興味を持ったイベントがあれば、詳細ページにアクセスして、イベントの日時や場所、参加方法などを確認してください。新たな一歩を踏み出して、素晴らしい大学生活をスタートさせましょう！
-  </p>
-
-
-  <h2>最新のイベント</h2>
-  <ul id="post-list"></ul>
-</main>
 <footer>
-  <p>© 2023 </p>
+    <p>© 2023 </p>
 </footer>
 
 <script>
-  //更新時にDBにリクエストしてデータをpostに追加する
+    //更新時にDBにリクエストしてデータをpostに追加する
 
-  //モック：仮に作ったデータ
-  const posts = [
-    {
-      title: "投稿1のタイトル",
-      data: "2023/03/22",
-      name: "田中太郎",
-      description: "ここでパーティをします！"
-    },
-    {
-      title: "投稿2のタイトル",
-      data: "2023/03/23",
-      name: "山田花子",
-      description: "ここでパーティをします！"
-    },
-    {
-        title: "投稿3のタイトル",
-        data: "2023/03/24",
-        name: "佐藤次郎",
-        description: "ここでパーティをします！"
-    }
-  ];
+    //モック：仮に作ったデータ
+    const posts = [
+        {
+            title: "投稿1のタイトル",
+            data: "2023/03/22",
+            name: "田中太郎",
+            description: "ここでパーティをします！"
+        },
+        {
+            title: "投稿2のタイトル",
+            data: "2023/03/23",
+            name: "山田花子",
+            description: "ここでパーティをします！"
+        },
+        {
+            title: "投稿3のタイトル",
+            data: "2023/03/24",
+            name: "佐藤次郎",
+            description: "ここでパーティをします！"
+        }
+    ];
 
-  const postList = document.getElementById("post-list");
+    const postList = document.querySelector(".post-list");
 
-  posts.forEach(post => {
-    const listItem = document.createElement("li");
-    const postTitle = document.createElement("h3");
+    posts.forEach(post => {
+        const listItem = document.createElement("li");
+        const postTitle = document.createElement("h3");
 
-  postTitle.textContent = post.title;
-  listItem.appendChild(postTitle);
+        postTitle.textContent = post.title;
+        postTitle.classList.add("post-title");
+        listItem.appendChild(postTitle);
 
-  const postData = document.createElement("p");
-  postData.textContent = "開催日時: " + post.data;
-  listItem.appendChild(postData);
+        const postData = document.createElement("p");
+        postData.textContent = "開催日時: " + post.data;
+        postData.classList.add("post-data");
+        listItem.appendChild(postData);
 
-  const postName = document.createElement("p");
-  postName.textContent = "名前: " + post.name;
-  listItem.appendChild(postName);
+        const postName = document.createElement("p");
+        postName.textContent = "名前: " + post.name;
+        postName.classList.add("post-name");
+        listItem.appendChild(postName);
 
-  const postDescription = document.createElement("p");
-  postDescription.textContent = "紹介文: " + post.description;
-  listItem.appendChild(postDescription);
+        const postDescription = document.createElement("p");
+        postDescription.textContent = "紹介文: " + post.description;
+        postDescription.classList.add("post-description");
+        listItem.appendChild(postDescription);
 
-  postList.appendChild(listItem);
-  });
+        const joinButton = document.createElement("button");
+        joinButton.textContent = "参加します";
+        joinButton.classList.add("join-button");
+        listItem.appendChild(joinButton);
+
+        joinButton.addEventListener("click", () => {
+            joinButton.disabled = true;
+        });
+
+        listItem.classList.add("post");
+        postList.appendChild(listItem);
+    });
 </script>
-
 </body>
 
 </html>

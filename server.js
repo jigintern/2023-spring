@@ -1,13 +1,36 @@
 // deno-lint-ignore-file
+import { fetchChat } from "https://code4fukui.github.io/ai_chat/fetchChat.js";
+import { config } from "https://deno.land/std@0.167.0/dotenv/mod.ts";
 import { serveDir } from "https://deno.land/std@0.180.0/http/file_server.ts";
 import { serve } from "https://deno.land/std@0.180.0/http/server.ts";
 
 serve(async (req) => {
+  console.log(await config());
+
   const pathname = new URL(req.url).pathname;
   console.log(pathname);
 
   if (req.method === "GET" && pathname === "/welcome-message") {
-    return new Response("jigインターン初コミット！！");
+    return new Response("ようこそ");
+  }
+
+  if (req.method === "POST" && pathname === "/translate-ai") {
+    const requestJson = await req.json();
+    const overview = requestJson.overview;
+    const keyword = requestJson.keyword;
+    let resp = null;
+    try {
+      resp = await fetchChat(
+        `${keyword}というキーワードがあてはまる人を集めた${overview}を開こうとしています。
+        この${overview}の紹介文を200字程度で教えてください。ただし、キーワードの説明を中心に、その他の説明はできるだけ省くようにしてください。`
+      );
+    } catch (error) {
+      console.error("Error while processing chat request:", error);
+      return new Response("Error: " + error.message, { status: 500 });
+    }
+    if (resp !== null) {
+      return new Response(resp);
+    }
   }
 
   return serveDir(req, {

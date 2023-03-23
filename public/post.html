@@ -94,9 +94,11 @@
         const detail = document.getElementById("detail");
         const overView = document.getElementById("overview");
 
+        // AIおまかせボタンのクリックイベント
+        // KEYWORDとOVERVIEWをサーバーに送って、AI紹介文を受け取る
         aiButton.addEventListener("click", (e) => {
             e.preventDefault();
-            if(keyWords.value&&overView.value){
+            if (keyWords.value && overView.value) {
                 detail.setAttribute("disabled", true);
                 detail.value = "考え中。。。。。";
                 // setTimeout(console.log("2秒経過しました"), 2000);
@@ -106,15 +108,15 @@
 
 
         //必要事項が入っているかいないかをチェック
-        document.querySelector("#send-button").onclick = (e) =>{
+        document.querySelector("#send-button").onclick = (e) => {
             e.preventDefault();
-            if(date.value&&title.value&&name.value&&detail.value){
+            if (date.value && title.value && name.value && detail.value) {
                 console.log("ありました");
-            }else{
+            } else {
                 alert("赤文字のところを全て入力してください");
             }
-        } 
-        
+        }
+
         //サーバーと互換性をつけるときに使ってください
         // document.querySelector("#ai-button").onclick = async(event) => {
         //     await fetch("/translate-ai", {
