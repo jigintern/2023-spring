@@ -69,10 +69,10 @@
         postTitle.classList.add("post-title");
         listItem.appendChild(postTitle);
 
-        const postData = document.createElement("p");
-        postData.textContent = "開催日時: " + post.data;
-        postData.classList.add("post-data");
-        listItem.appendChild(postData);
+        const postDate = document.createElement("p");
+        postDate.textContent = "開催日時: " + post.date;
+        postDate.classList.add("post-date");
+        listItem.appendChild(postDate);
 
         const postName = document.createElement("p");
         postName.textContent = "名前: " + post.name;
