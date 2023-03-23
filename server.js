@@ -36,6 +36,10 @@ serve(async (req) => {
     }
   }
 
+  if (pathname === "/test.js") {
+    return serveDir(req, { fsRoot: "", urlRoot: "", enableCors: true, })
+  }
+
   return serveDir(req, {
     fsRoot: "public",
     urlRoot: "",
