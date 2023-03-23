@@ -2,6 +2,7 @@
     "deno.enable": true,
     "deno.lint": true,
     "deno.unstable": true,
+    "deno.path": "/opt/homebrew/bin/deno",
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "denoland.vscode-deno",
     "[typescript]": {
