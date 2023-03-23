@@ -3,7 +3,7 @@ import {fetchChat} from "https://code4fukui.github.io/ai_chat/fetchChat.js";
 import {config} from "https://deno.land/std@0.167.0/dotenv/mod.ts";
 import {serveDir} from "https://deno.land/std@0.180.0/http/file_server.ts";
 import {serve} from "https://deno.land/std@0.180.0/http/server.ts";
-import {v4 as uuidv4} from "https://deno.land/std/uuid/mod.ts";
+import {v4 as uuidv4} from "https://deno.land/std@0.180.0/uuid/mod.ts";
 
 const posts = [];
 
