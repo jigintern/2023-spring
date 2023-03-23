@@ -34,3 +34,23 @@ JSONでoverviewとkeywordを送ってもらう。
 ```json
 { "overview": "みんなで飲み会", "keyword": "サッカー部、飲み会、新歓" }
 ```
+
+### POST: /register-post
+
+クライアントから受け取った投稿を配列に登録する。\
+
+```json
+{ "title": "タイトル", "overview": "概要", "data": "日付", "name": "名前" , "description": "詳細"}
+```
+
+### POST: /add-participants
+
+クライアントからidを受け取って、そのidの投稿の参加者を増やす。
+
+```json
+{ "id": 1 }
+```
+
+### GET: /get-post
+
+投稿を全件取得してクライアントに返す。
