@@ -12,7 +12,9 @@
 
   <script type="module">
     window.onload = async (event) => {
-      const response = await fetch("/welcome-message");
+      const object = "飲み会"
+      const keywords = "サッカー好き";
+      const response = await fetch("/translate-ai", { method: "POST", body: JSON.stringify({keywords,object}) });
       document.querySelector("#welcomeMessage").innerText = await response.text();
     };
   </script>
