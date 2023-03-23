@@ -24,6 +24,7 @@ serve(async (req) => {
         `${requestKeyWords}というキーワードがあてはまる人を集めた${requestObject}を開こうとしています。
         この${requestObject}の紹介文を200字程度で教えてください。ただし、キーワードの説明を中心に、その他の説明はできるだけ省くようにしてください。`
       );
+
     } catch (error) {
       console.error("Error while processing chat request:", error);
       return new Response("Error: " + error.message, { status: 500 });
@@ -33,6 +34,32 @@ serve(async (req) => {
       ("");
     }
   }
+
+  if (req.method === "GET" && pathname === "/fetch-data") {
+    try {
+      const data = await fetchSupabaseData();
+      return new Response(JSON.stringify(data), {
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return new Response("Error fetching data", { status: 500 });
+    }
+  }
+
+    if (req.method === "POST" && pathname === "/post-data") {
+    try {
+      const data = await postData();
+      return new Response(JSON.stringify(data), {
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (error) {
+      console.error("Error posting data:", error);
+
+      return new Response("Error posting data", { status: 500 });
+    }
+
+    }
 
   return serveDir(req, {
     fsRoot: "public",
