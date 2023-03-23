@@ -11,7 +11,7 @@
 
 <body>
     <div id="post">
-        <h1>投稿フォーム</h1>
+        <h1>キーワード以外入力してください</h1>
         <form action="" class="form">
             <table class="form-table">
                 <tr>
@@ -22,6 +22,16 @@
                     </th>
                     <td>
                         <input class="input" size="20" type="text" id="title" placeholder="タイトルは20文字以内でお願いします!">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="date">
+                            DATE
+                        </label>
+                    </th>
+                    <td>
+                        <input class="input" type="date" id="date">
                     </td>
                 </tr>
                 <tr>
@@ -58,7 +68,7 @@
                 </tr>
             </table>
             <div class="button">
-                <button class="send-button">SEND</button>
+                <button class="send-button" id="send-button">SEND</button>
             </div>
         </form>
     </div>
@@ -67,6 +77,9 @@
     <script type="module">
         const key_word_button = document.getElementById("ai-button");
         const keywords = document.getElementById("key-word");
+        const date = document.getElementById("date");
+        const title = document.getElementById("title");
+        const name = document.getElementById("name");
         const detail = document.getElementById("detail");
 
         key_word_button.addEventListener("click", (e) => {
@@ -78,6 +91,18 @@
                 detail.value = words;
             }
         });
+
+
+
+        document.querySelector("#send-button").onclick = (e) =>{
+            e.preventDefault();
+            if(date.value&&title.value&&name.value&&detail.value){
+                console.log("ありました");
+            }else{
+                alert("キーワード以外全て入力してください");
+            }
+        } 
+        
 
         // document.querySelector("#ai-button").onclick = async(event) => {
         //     await fetch("/hogehoge", {
