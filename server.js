@@ -17,6 +17,8 @@ serve(async (req) => {
         return new Response("ようこそ");
     }
 
+    //POST /translate-ai
+    //紹介文を概要とキーワードを元にAIで生成する
     if (req.method === "POST" && pathname === "/translate-ai") {
         const requestJson = await req.json();
         const overview = requestJson.overview;
@@ -36,11 +38,15 @@ serve(async (req) => {
         }
     }
 
+    //GET /get-posts
+    //投稿を全件取得
     if (req.method === "GET" && pathname === "/get-posts") {
         // そうじゃない場合は全件返す
         return new Response(posts);
     }
 
+    //POST /register-post
+    //投稿を登録
     if (req.method === "POST" && pathname === "/register-post") {
         // リクエストボディを取得する
         const requestJson = await req.json();
@@ -58,6 +64,8 @@ serve(async (req) => {
         return new Response(posts);
     }
 
+    //POST /add-participants
+    //参加者を1増やす
     if (req.method === "POST" && pathname === "/add-participants") {
         const u = new URL(req.url);
         const id = u.searchParams.get("id");
