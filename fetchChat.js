@@ -24,13 +24,11 @@ const fetchCompletions = async (req) => {
 
 await Deno.mkdir("log", { recursive: true });
 
-const fixPrompt = '以下のキーワードから200字程度でイベントの紹介文のみを出力してください。'
-
 export const fetchChat = async (prompt) => {
   console.log(KEY);
   const req = {
     model: "gpt-3.5-turbo", // gpt-3.5-turbo and gpt-3.5-turbo-0301 are supported.
-    messages: [{ role: "user", content: fixPrompt+prompt }],
+    messages: [{ role: "user", content: prompt }],
   };
   //console.log(req);
   const res = await fetchCompletions(req);
