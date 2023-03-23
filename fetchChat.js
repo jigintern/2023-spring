@@ -30,7 +30,7 @@ export const fetchChat = async (prompt) => {
     model: "gpt-3.5-turbo", // gpt-3.5-turbo and gpt-3.5-turbo-0301 are supported.
     messages: [{ role: "user", content: prompt }],
   };
-  
+
   //console.log(req);
   const res = await fetchCompletions(req);
   //console.log(res);
