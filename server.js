@@ -31,7 +31,6 @@ serve(async (req) => {
     }
     if (resp !== null) {
       return new Response(resp);
-      ("");
     }
   }
 
