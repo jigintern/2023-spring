@@ -48,7 +48,7 @@ header h1 {
     margin: 0;
   }
   
-  footer {
+  /* footer {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -59,6 +59,14 @@ header h1 {
     text-align: center;
     padding-top: 30px;
     padding-bottom: 30px;
+} */
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  margin-top: 32px;
 }
 
 footer p {
