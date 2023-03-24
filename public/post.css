@@ -64,8 +64,9 @@ h1, h2 {
 
 
 .form-table {
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto;
+    margin-right: auto; */
+    /* margin-right: 60px; */
 }
 
 .input {
@@ -83,6 +84,7 @@ h1, h2 {
     transition: .4s;
     box-shadow: 3px 3px #a8a3a3;
     cursor: pointer;
+
 }
 
 .ai-button:hover {
@@ -186,12 +188,14 @@ h1, h2 {
 
     .form-table {
         display: block;
+        margin: 20px;
     }
 
 
     .ai-button{
-        margin-left: 242px;
-        margin-right: 20px;
+        float:right;
+        /* margin-left: 242px;*/
+        /* margin-right: 20px;  */
     }
 
 }
