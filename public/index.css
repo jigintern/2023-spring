@@ -105,6 +105,16 @@ main {
     transition: background-color 0.3s ease;
 }
 
+  .participant-count {
+    display: inline-block;
+    background-color: orange;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-left: 10px;
+    padding: 10px 20px;
+  }  
+
 .join-button:hover {
     background-color: #002c52;
 }
