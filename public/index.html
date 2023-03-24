@@ -27,9 +27,16 @@
             多忙な人やイベント探しに疲れた人でも手軽に素晴らしいイベントを見つけることができます。<br>
     </section>
     <section class="posts">
-        <!-- <a href="post.html">イベントを投稿する</a>
-    <a href="about.html">サイトの説明</a> -->
         <h2>最新のイベント</h2>
+        <label for="sort-select">並べ替え:</label>
+        <select id="sort-select">
+            <option value="newest-date">近日開催順</option>
+            <option value="oldest-date">遠日開催順</option>
+            <option value="max-participants">最大参加人数順</option>
+            <option value="min-participants">最小人数順</option>
+            <option value="newest-post">最新投稿順</option>
+            <option value="oldest-post">最古投稿順</option>
+        </select>
         <ul class="post-list"></ul>
     </section>
 
@@ -45,6 +52,39 @@
 <script>
     let data = [];
 
+    function sortPosts(option) {
+        switch (option) {
+            case "newest-date":
+                data.sort((a, b) => new Date(b.date) - new Date(a.date));
+                break;
+            case "oldest-date":
+                data.sort((a, b) => new Date(a.date) - new Date(b.date));
+                break;
+            case "max-participants":
+                data.sort((a, b) => b.participants - a.participants);
+                break;
+            case "min-participants":
+                data.sort((a, b) => a.participants - b.participants);
+                break;
+            case "newest-post":
+                data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                break;
+            case "oldest-post":
+                data.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+                break;
+        }
+    }
+
+
+    const sortSelect = document.getElementById("sort-select");
+    sortSelect.addEventListener("change", (event) => {
+        const selectedOption = event.target.value;
+        sortPosts(selectedOption);
+        updatePosts(data);
+
+        localStorage.setItem("sortOption", selectedOption);
+    });
+
     async function fetchPosts() {
         try {
             console.log("fetchPosts");
@@ -56,13 +96,25 @@
         } catch (error) {
             console.error("Error fetching posts:", error);
         }
+
+        const savedSortOption = localStorage.getItem("sortOption");
+        if (savedSortOption) {
+            sortSelect.value = savedSortOption;
+            sortPosts(savedSortOption);
+            updatePosts(data);
+        }
     }
 
     function updatePosts(posts) {
         // リストの更新処理をここで行います。
         const postList = document.querySelector(".post-list");
 
+        while (postList.firstChild) {
+            postList.removeChild(postList.firstChild);
+        }
+
         posts.forEach(post => {
+
             const listItem = document.createElement("li");
             const postTitle = document.createElement("h3");
 

@@ -170,3 +170,19 @@ nav ul li {
   .fab:hover {
     background-color: orange;
   }
+
+label[for="sort-select"] {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 40px;
+}
+
+#sort-select {
+    padding: 5px 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+}
