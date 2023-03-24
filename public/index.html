@@ -27,103 +27,86 @@
 </footer>
 
 <script>
-    //投稿板欄が入った配列
-    let posts = [{
-        id: "1",
-        title: "投稿1のタイトル",
-        date: "2023/03/22",
-        name: "田中太郎",
-        description: "ここでパーティをします！",
-        participants: "5"
-    },
-    {
-        id: "2",
-        title: "投稿2のタイトル",
-        date: "2023/03/23",
-        name: "山田花子",
-        description: "ここでパーティをします！",
-        participants: "3"
-    },
-    {
-        id: "3",
-        title: "投稿3のタイトル",
-        date: "2023/03/24",
-        name: "佐藤次郎",
-        description: "ここでパーティをします！",
-        participants: "4"
-    }];
+    let data = [];
 
-    //更新時にDBにリクエストしてデータをpostに追加する
-    window.onload = async () => {
-        const response = await fetch("/get-posts");
-        console.log(response);
-        posts = await response.json();
-        console.log(posts);
+    async function fetchPosts() {
+        try {
+            console.log("fetchPosts");
+            const response = await fetch("/get-posts");
+            data = await response.json();
+            console.log(data+"data");
+            // リストの更新処理をここで行います。
+            updatePosts(data)
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+        }
     }
 
-    const postList = document.querySelector(".post-list");
+    function updatePosts(posts) {
+        // リストの更新処理をここで行います。
+        const postList = document.querySelector(".post-list");
 
-    posts.forEach(post => {
-        const listItem = document.createElement("li");
-        const postTitle = document.createElement("h3");
+        posts.forEach(post => {
+            const listItem = document.createElement("li");
+            const postTitle = document.createElement("h3");
 
-        postTitle.textContent = post.title;
-        postTitle.classList.add("post-title");
-        listItem.appendChild(postTitle);
+            postTitle.textContent = post.title;
+            postTitle.classList.add("post-title");
+            listItem.appendChild(postTitle);
 
-        const postDate = document.createElement("p");
-        postDate.textContent = "開催日時: " + post.date;
-        postDate.classList.add("post-date");
-        listItem.appendChild(postDate);
+            const postDate = document.createElement("p");
+            postDate.textContent = "開催日時: " + post.date;
+            postDate.classList.add("post-date");
+            listItem.appendChild(postDate);
 
-        const postName = document.createElement("p");
-        postName.textContent = "名前: " + post.name;
-        postName.classList.add("post-name");
-        listItem.appendChild(postName);
+            const postName = document.createElement("p");
+            postName.textContent = "名前: " + post.username;
+            postName.classList.add("post-name");
+            listItem.appendChild(postName);
 
-        const postDescription = document.createElement("p");
-        postDescription.textContent = "紹介文: " + post.description;
-        postDescription.classList.add("post-description");
-        listItem.appendChild(postDescription);
+            const postDescription = document.createElement("p");
+            postDescription.textContent = "紹介文: " + post.description;
+            postDescription.classList.add("post-description");
+            listItem.appendChild(postDescription);
 
-        //参加ボタン
-        const joinButton = document.createElement("button");
-        joinButton.textContent = "参加します";
-        joinButton.classList.add("join-button");
-        listItem.appendChild(joinButton);
+            //参加ボタン
+            const joinButton = document.createElement("button");
+            joinButton.textContent = "参加します";
+            joinButton.classList.add("join-button");
+            listItem.appendChild(joinButton);
 
-        //参加者数表示する要素
-        const participantCount = document.createElement("p");
-        participantCount.textContent = "参加者数: " + post.participants;
-        participantCount.classList.add("participant-count");
-        listItem.appendChild(participantCount);
+            //参加者数表示する要素
+            const participantCount = document.createElement("p");
+            participantCount.textContent = "参加者数: " + post.participants;
+            participantCount.classList.add("participant-count");
+            listItem.appendChild(participantCount);
 
-        // const participantCount = document.createElement("p");
-        // participantCount.textContent = "";
+            joinButton.addEventListener("click", async () => {
+                joinButton.style.backgroundColor = "green";
+                joinButton.textContent = "参加しました";
 
-        joinButton.addEventListener("click", async () => {
-            joinButton.style.backgroundColor = "green";
-            joinButton.textContent = "参加しました";
+                await fetch("/add-participants", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(post.id)
+                })
+                    .then(response => {
+                        console.log("Data submitted successfully" + response);
+                    })
+                    .catch(error => console.error("Error submitting data:", error));
 
-            const response = await fetch("/add-participants", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ "id": post.id })
-            })
+                updatePosts(data);
+            });
 
-            //更新されたPost一覧取得
-            // posts = await response.json();
-            const data = await response.json();
-            posts = data.posts;
-            const post = posts.find(post => post.id === data.id);
-            const numParticipants = post.participants;
-
-            //参加者数表示
+            listItem.classList.add("post");
+            postList.appendChild(listItem);
         });
+    }
 
-        listItem.classList.add("post");
-        postList.appendChild(listItem);
-    });
+    // ページの読み込みが完了したら、fetchPostsを実行します。
+    window.addEventListener("load", fetchPosts);
 </script>
 </body>
 
