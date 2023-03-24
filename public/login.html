@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン・ログアウト・サインアップ</title>
+</head>
+<body>
+<h1>ログイン</h1>
+<form onsubmit="event.preventDefault(); login();">
+  <label for="email">メールアドレス:</label>
+  <input type="email" id="email" required>
+  <br>
+  <label for="password">パスワード:</label>
+  <input type="password" id="password" required>
+  <br>
+  <button type="submit">ログイン</button>
+</form>
+
+<h1>ログアウト</h1>
+<button onclick="logout()">ログアウト</button>
+
+<h1>サインアップ</h1>
+<form onsubmit="event.preventDefault(); signup();">
+  <label for="signup-email">メールアドレス:</label>
+  <input type="email" id="signup-email" required>
+  <br>
+  <label for="signup-password">パスワード:</label>
+  <input type="password" id="signup-password" required>
+  <br>
+  <button type="submit">サインアップ</button>
+</form>
+</body>
+<script>
+  async function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const response = await fetch('/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const data = await response.json();
+    console.log(data);
+    if (data.success) {
+      window.location.href = '/';
+    }
+  }
+
+  async function logout() {
+    const response = await fetch('/logout', { method: 'POST' });
+    const data = await response.json();
+    console.log(data);
+    if (data.success) {
+      window.location.href = '/';
+    }
+  }
+
+  async function signup() {
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+    const response = await fetch('/signup', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const data = await response.json();
+    console.log(data);
+    //成功したらindex.htmlにリダイレクト
+    if (data.success) {
+      window.location.href = '/';
+    }
+  }
+</script>
+</html>
