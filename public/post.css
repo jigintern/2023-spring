@@ -189,11 +189,13 @@ h1, h2 {
     .form-table {
         display: block;
         /* margin: 0 10px 20px; */
+        margin: 10px;
     }
 
 
     .ai-button{
         float:right;
+        height: 30px;
         /* margin-left: 242px;*/
         /* margin-right: 20px;  */
     }
