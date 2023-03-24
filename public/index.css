@@ -125,5 +125,24 @@ footer {
     color: #fff;
     padding: 20px;
     text-align: center;
-    /* margin-top: 32px; */
+
+    margin-top: 32px;
 }
+
+/*navタグのliにCSSを当てる*/
+nav ul li {
+    /* display: inline-block; */
+    margin-right: 20px;
+    float:right;
+    list-style-type: none;
+    line-height: 0.5;
+  }
+  
+  /* <a>タグにスタイルを当てる */
+  nav ul li a {
+    text-decoration: none; 
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
