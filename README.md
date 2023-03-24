@@ -51,6 +51,6 @@ JSONでoverviewとkeywordを送ってもらう。
 { "id": 1 }
 ```
 
-### GET: /get-post
+### GET: /get-posts
 
 投稿を全件取得してクライアントに返す。
