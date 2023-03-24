@@ -1,11 +1,48 @@
 // deno-lint-ignore-file
-import {fetchChat} from "https://code4fukui.github.io/ai_chat/fetchChat.js";
-import {config} from "https://deno.land/std@0.167.0/dotenv/mod.ts";
-import {serveDir} from "https://deno.land/std@0.180.0/http/file_server.ts";
-import {serve} from "https://deno.land/std@0.180.0/http/server.ts";
-import {v4 as uuidv4} from "https://deno.land/std@0.180.0/uuid/mod.ts";
+import {createClient} from "https://esm.sh/@supabase/supabase-js";
+import {serve} from "https://deno.land/std@0.138.0/http/server.ts";
+import {serveDir} from "https://deno.land/std@0.138.0/http/file_server.ts";
+import "https://deno.land/std@0.167.0/dotenv/load.ts";
 
-const posts = [];
+const url = Deno.env.get("SUPABASE_URL");
+const key = Deno.env.get("SUPABASE_KEY");
+
+const supabase = createClient(url, key)
+
+//ポストを全件取得
+async function fetchPosts() {
+    const {data, error} = await supabase.from('post').select('*');//テーブル名 *は全てのカラム
+    return {data, error};
+}
+//ポストを登録
+async function registerPost(postData) {
+    const {error} = await supabase.from('post').insert(postData);//テーブル名
+    return {error};
+}
+//参加者数を取得
+async function getParticipants(id) {
+    const {data: participants, error} = await supabase
+        .from('post')//テーブル名
+        .select('participants')//取得するカラム
+        .eq('id', id);//idが一致するもの
+    return {participants, error};
+}
+//参加者数を更新
+async function updateParticipants(id, newCount) {
+    const {error} = await supabase
+        .from('post')//テーブル名
+        .update({participants: newCount})//更新するカラム
+        .eq('id', id);//idが一致するもの
+    return {error};
+}
+//エラー処理
+async function handleError(error) {
+    console.log("このエラーは" + error);
+    return new Response(JSON.stringify({error: "An error occurred while processing your request"}), {
+        status: 500,
+        headers: {"content-type": "application/json"}
+    });
+}
 
 serve(async (req) => {
     console.log(await config());
@@ -41,62 +78,46 @@ serve(async (req) => {
     //GET /get-posts
     //投稿を全件取得
     if (req.method === "GET" && pathname === "/get-posts") {
-        // そうじゃない場合は全件返す
-        return new Response( JSON.stringify(posts), {
-            headers: {
-                "Content-type": "application/json; charset=UTF-8",
-            }
-        });
+        const {data, error} = await fetchPosts();
+        if (error) return handleError(error);
+
+        console.log("成功したかも" + JSON.stringify(data));
+        return new Response(JSON.stringify(data), {headers: {"content-type": "application/json"}});
     }
 
     //POST /register-post
     //投稿を登録
     if (req.method === "POST" && pathname === "/register-post") {
-        // リクエストボディを取得する
-        const requestJson = await req.json();
-        //ランダムなIDを生成する
-        const id = uuidv4();
-        //タイトル
-        const title = requestJson.title;
-        //日付
-        const date = requestJson.data;
-        //名前
-        const name = requestJson.name;
-        //詳細
-        const description = requestJson.description;
-        //デフォルトは0
-        const participants = 0;
-        // リクエストボディをpostsに追加する
-        posts.push({id, title, date, name, description, participants});
-        // 更新されたpostsを返す
+        const requestData = await req.json();
+        const postData = {
+            username: requestData.username,
+            title: requestData.title,
+            date: requestData.date,
+            description: requestData.description,
+            participants: 0
+        };
 
-        return new Response(JSON.stringify(posts), {
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8",
-                }
-            }
-        );
+        const {error} = await registerPost(postData);
+        if (error) return handleError(error);
+
+        console.log("成功したかも" + requestData.date);
+        return new Response(JSON.stringify(requestData), {headers: {"content-type": "application/json"}});
     }
 
     //POST /add-participants
     //参加者を1増やす
     if (req.method === "POST" && pathname === "/add-participants") {
-        //リクエストボディを取得する
-        const requestJson = await req.json();
-        //idを取得する
-        const id = requestJson.id;
-        //postsの中からidが一致するものを探す
-        const post = posts.find((post) => post.id === id);
-        //postの持つparticipantsを1増やす
-        post.participants += 1;
-        //更新されたpostsをjsonで返す
-        return new Response(
-            JSON.stringify(posts), {
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8",
-                }
-            }
-        );
+        const requestData = await req.json();
+
+        const {participants, error1} = await getParticipants(requestData);
+        if (error1) return handleError(error1);
+
+        const newParticipantCount = participants[0].participants + 1;
+        const {error} = await updateParticipants(requestData, newParticipantCount);
+        if (error) return handleError(error);
+
+        console.log("成功したかも" + requestData);
+        return new Response(JSON.stringify(requestData), {headers: {"content-type": "application/json"}});
     }
 
     return serveDir(req, {
