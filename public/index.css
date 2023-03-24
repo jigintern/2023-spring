@@ -25,6 +25,7 @@ header {
     background-color: #003366;
     color: #fff;
     padding: 20px;
+    margin-bottom: 32px;
 }
 
 header h1 {
@@ -40,7 +41,7 @@ main {
 
 /* About section styles */
 .about {
-    margin-bottom: 20px;
+    margin: 0 16px 20px 16px;
 }
 
 .about h2 {
@@ -55,17 +56,18 @@ main {
 /* Posts section styles */
 .posts h2 {
     font-size: 24px;
-    margin-bottom: 20px;
+    margin: 0 16px 20px 16px;
 }
 
 .post-list {
     list-style: none;
+    margin: 0 32px 0 32px;
 }
 
 .post {
     background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
     padding: 20px;
@@ -76,14 +78,14 @@ main {
     margin-bottom: 10px;
 }
 
-.post-data,
+.post-date,
 .post-name,
 .post-description {
     font-size: 16px;
     margin-bottom: 10px;
 }
 
-.post-data::before,
+.post-date::before,
 .post-name::before,
 .post-description::before {
     content: '\00BB';
@@ -113,4 +115,5 @@ footer {
     color: #fff;
     padding: 20px;
     text-align: center;
+    margin-top: 32px;
 }
