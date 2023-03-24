@@ -9,33 +9,33 @@ const key = Deno.env.get("SUPABASE_KEY");
 
 const supabase = createClient(url, key)
 
-
+//ポストを全件取得
 async function fetchPosts() {
-    const {data, error} = await supabase.from('post').select('*');
+    const {data, error} = await supabase.from('post').select('*');//テーブル名 *は全てのカラム
     return {data, error};
 }
-
+//ポストを登録
 async function registerPost(postData) {
-    const {error} = await supabase.from('post').insert(postData);
+    const {error} = await supabase.from('post').insert(postData);//テーブル名
     return {error};
 }
-
+//参加者数を取得
 async function getParticipants(id) {
     const {data: participants, error} = await supabase
-        .from('post')
-        .select('participants')
-        .eq('id', id);
+        .from('post')//テーブル名
+        .select('participants')//取得するカラム
+        .eq('id', id);//idが一致するもの
     return {participants, error};
 }
-
+//参加者数を更新
 async function updateParticipants(id, newCount) {
     const {error} = await supabase
-        .from('post')
-        .update({participants: newCount})
-        .eq('id', id);
+        .from('post')//テーブル名
+        .update({participants: newCount})//更新するカラム
+        .eq('id', id);//idが一致するもの
     return {error};
 }
-
+//エラー処理
 async function handleError(error) {
     console.log("このエラーは" + error);
     return new Response(JSON.stringify({error: "An error occurred while processing your request"}), {
