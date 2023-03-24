@@ -1,6 +1,6 @@
 // deno-lint-ignore-file
-import { fetchChat } from "https://code4fukui.github.io/ai_chat/fetchChat.js";
-import { config as dotenvConfig } from "https://deno.land/std@0.167.0/dotenv/mod.ts";
+import {fetchChat} from "https://code4fukui.github.io/ai_chat/fetchChat.js";
+import {config as dotenvConfig} from "https://deno.land/std@0.167.0/dotenv/mod.ts";
 import {createClient} from "https://esm.sh/@supabase/supabase-js";
 import {serve} from "https://deno.land/std@0.138.0/http/server.ts";
 import {serveDir} from "https://deno.land/std@0.138.0/http/file_server.ts";
@@ -16,11 +16,13 @@ async function fetchPosts() {
     const {data, error} = await supabase.from('post').select('*');//テーブル名 *は全てのカラム
     return {data, error};
 }
+
 //ポストを登録
 async function registerPost(postData) {
     const {error} = await supabase.from('post').insert(postData);//テーブル名
     return {error};
 }
+
 //参加者数を取得
 async function getParticipants(id) {
     const {data: participants, error} = await supabase
@@ -29,6 +31,7 @@ async function getParticipants(id) {
         .eq('id', id);//idが一致するもの
     return {participants, error};
 }
+
 //参加者数を更新
 async function updateParticipants(id, newCount) {
     const {error} = await supabase
@@ -37,6 +40,7 @@ async function updateParticipants(id, newCount) {
         .eq('id', id);//idが一致するもの
     return {error};
 }
+
 //エラー処理
 async function handleError(error) {
     console.log("このエラーは" + error);
@@ -122,6 +126,54 @@ serve(async (req) => {
 
         console.log("成功したかも" + requestData);
         return new Response(JSON.stringify(requestData), {headers: {"content-type": "application/json"}});
+    }
+
+    //サインアップ
+    if (req.method === "POST" && pathname === "/signup") {
+        const requestData = await req.json();
+        const {data, session, error} = await supabase.auth.signUp({
+            email: requestData.email,
+            password: requestData.password
+        });
+        if (error) return handleError(error);
+
+        //ログイン状態を返す
+
+        console.log("成功したかも" + requestData);
+        return new Response(JSON.stringify(requestData), {headers: {"content-type": "application/json"}});
+    }
+
+    //ログイン
+    if (req.method === "POST" && pathname === "/login") {
+        const requestData = await req.json();
+        const {user, session, error} = await supabase.auth.signIn({
+            email: requestData.email,
+            password: requestData.password
+        });
+        if (error) return handleError(error);
+
+        //ログイン状態を返す
+
+        console.log("成功したかも" + requestData);
+        return new Response(JSON.stringify(requestData), {headers: {"content-type": "application/json"}});
+    }
+
+    //ログアウト
+    if (req.method === "POST" && pathname === "/logout") {
+        const {error} = await supabase.auth.signOut();
+        if (error) return handleError(error);
+
+        //ログアウト状態を返す
+
+        console.log("成功したかも" + requestData);
+        return new Response(JSON.stringify(requestData), {headers: {"content-type": "application/json"}});
+    }
+
+    //ログイン状態を返す
+    if (req.method === "GET" && pathname === "/isLogin") {
+        const user = supabase.auth.user();
+        console.log("成功したかも" + user);
+        return new Response(JSON.stringify(user), {headers: {"content-type": "application/json"}});
     }
 
     return serveDir(req, {
