@@ -1,24 +1,56 @@
-html body {
+/* Reset styles */
+html,
+body,
+ul,
+li,
+h1,
+h2,
+h3,
+p,
+footer {
     margin: 0;
     padding: 0;
 }
 
-
+/* Body styles */
 body {
     background-color: #f7f7f7;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
 }
 
-.header {
+/* Header styles */
+header {
     background-color: #003366;
-    height: 100px;
+    color: #fff;
+    padding: 20px;
+    margin-bottom: 32px;
 }
 
-.header h3 {
-    color: #f7f7f7;
-    font-size: 40px;
-    margin-left: 30px;
-    margin-top: 30px;
+header h1 {
+    font-size: 32px;
 }
+
+header h1 {
+    text-align: left;
+}
+
+nav ul li {
+    /* display: inline-block; */
+    margin-right: 20px;
+    float:right;
+    list-style-type: none;
+    line-height: 0.5;
+  }
+  
+  /* <a>タグにスタイルを当てる */
+  nav ul li a {
+    text-decoration: none; 
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+  }
 
 
 h1, h2 {
