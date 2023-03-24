@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -7,32 +8,39 @@
     <link rel="stylesheet" href="index.css">
     <title>JoinUp - Home</title>
 </head>
-<header>
-    <h1>JoinUp</h1>
-    <nav>
-        <ul>
-            <li><a href="about.html">ABOUT</a></li>
-            <li><a href="post.html">POST</a></li>
-            <li><a href="index.html">HOME</a></li>
-        </ul>
-    </nav>
-</header>
-<section class="about">
-    <h2>JoinUpについて</h2>
-    <p class="description">
-        「JoinUp」は、AIによる最適化されたイベント紹介文を提供するWebサービスです。<br>
-        多忙な人やイベント探しに疲れた人でも手軽に素晴らしいイベントを見つけることができます。<br>
-</section>
-<section class="posts">
-    <!-- <a href="post.html">イベントを投稿する</a>
+
+<body>
+    <header>
+        <h1>JoinUp</h1>
+        <nav>
+            <ul>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="post.html">POST</a></li>
+                <li><a href="index.html">HOME</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="about">
+        <h2>JoinUpについて</h2>
+        <p class="description">
+            「JoinUp」は、AIによる最適化されたイベント紹介文を提供するWebサービスです。<br>
+            多忙な人やイベント探しに疲れた人でも手軽に素晴らしいイベントを見つけることができます。<br>
+    </section>
+    <section class="posts">
+        <!-- <a href="post.html">イベントを投稿する</a>
     <a href="about.html">サイトの説明</a> -->
-    <h2>最新のイベント</h2>
-    <ul class="post-list"></ul>
-</section>
+        <h2>最新のイベント</h2>
+        <ul class="post-list"></ul>
+    </section>
+
+    <button class="fab"><a href="post.html">＋</a></button>
+</body>
 
 <footer>
     <p>© 本州北から南まで</p>
 </footer>
+
+</html>
 
 <script>
     let data = [];

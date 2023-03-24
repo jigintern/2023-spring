@@ -144,3 +144,29 @@ nav ul li {
     font-size: 16px;
     font-weight: bold;
   }
+
+  .fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    outline: none;
+  }
+
+  .fab a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .fab:hover {
+    background-color: orange;
+  }
+  
