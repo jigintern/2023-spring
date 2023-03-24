@@ -121,18 +121,24 @@
 
         //必要事項が入っているかいないかをチェック
         document.querySelector("#send-button").onclick = async(e) => {
-            const title = titleInput.value;
-            const name = nameInput.value;
-            const date = dateInput.value;
-            const description = detailInput.value;
+
+            e.preventDefault();
+
+            const data = {
+                title: titleInput.value,
+                username: nameInput.value,
+                date: dateInput.value,
+                description: detailInput.value
+            }
+            console.log(data);
+
             //ボタンを押したときに自動リロードされないようにした
             //serverとの兼ね合いでここではdescription = detailである
-            e.preventDefault();
-            if (date && title && name && detail) {
+            if (data.title && data.username && data.date && data.description) {
                 const resp = await fetch("/register-post", {  
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ title, name, date, description })
+                    body: JSON.stringify(data)
                 });
                 //一応空ににした。
                 titleInput.value = "";

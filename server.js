@@ -1,9 +1,10 @@
 // deno-lint-ignore-file
-import {createClient} from "https://esm.sh/@supabase/supabase-js@2.11.0";
+import { fetchChat } from "https://code4fukui.github.io/ai_chat/fetchChat.js";
+import { config as dotenvConfig } from "https://deno.land/std@0.167.0/dotenv/mod.ts";
+import {createClient} from "https://esm.sh/@supabase/supabase-js";
 import {serve} from "https://deno.land/std@0.138.0/http/server.ts";
 import {serveDir} from "https://deno.land/std@0.138.0/http/file_server.ts";
 import "https://deno.land/std@0.167.0/dotenv/load.ts";
-
 
 const url = Deno.env.get("SUPABASE_URL");
 const key = Deno.env.get("SUPABASE_KEY");
@@ -46,7 +47,8 @@ async function handleError(error) {
 }
 
 serve(async (req) => {
-    console.log(await config());
+    console.log(await dotenvConfig());
+
 
     const pathname = new URL(req.url).pathname;
     console.log(pathname);
@@ -61,6 +63,7 @@ serve(async (req) => {
         const requestJson = await req.json();
         const overview = requestJson.overview;
         const keyword = requestJson.keyword;
+        console.log("overview:" + overview);
         let resp = null;
         try {
             resp = await fetchChat(
