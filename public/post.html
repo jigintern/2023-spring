@@ -6,16 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="post.css">
-    <title>Document</title>
+    <title>JoinUp - Create</title>
 </head>
-
 <body>
+
+    <header class="header">
+        <h3>JoinUp　投稿ページ</h3>
+        <a href="./index.html" class="a">Home</a>
+    </header>
     <div id="post">
         <h1>投稿したい内容を書き込んでください</h1>
         <h2>赤文字の部分は必須項目となります</h2>
         <form action="" class="form">
             <table class="form-table">
-                <tr>
+                <tr class="tr">
                     <th>
                         <label for="title" class="must">
                             タイトル
@@ -25,7 +29,7 @@
                         <input class="input" size="20" type="text" id="title" placeholder="例）友達100人作りましょう！！">
                     </td>
                 </tr>
-                <tr>
+                <tr class="tr">
                     <th>
                         <label for="date" class="must">
                             開催日時
@@ -35,7 +39,7 @@
                         <input class="input" type="date" id="date">
                     </td>
                 </tr>
-                <tr>
+                <tr class="tr">
                     <th>
                         <label for="name" class="must">
                             お名前
@@ -45,7 +49,7 @@
                         <input class="input" type="text" id="name" placeholder="例）jig大学　jp学部　代表日本太郎">
                     </td>
                 </tr>
-                <tr>
+                <tr class="tr">
                     <th>
                         <label for="key-word">
                             概要
@@ -55,7 +59,7 @@
                         <input class="input" type="text" id="overview" placeholder="例）焼肉食べ放題">
                     </td>
                 </tr>
-                <tr>
+                <tr class="tr">
                     <th>
                         <label for="key-word">
                             キーワード
@@ -66,7 +70,7 @@
                         <button id="ai-button" class="ai-button">AIにお任せ</button>
                     </td>
                 </tr>
-                <tr>
+                <tr class="tr">
                     <th>
                         <label for="detail" class="must">
                             詳細
@@ -83,7 +87,9 @@
             </div>
         </form>
     </div>
-    <hr>
+    <footer class="footer">
+        <p class="p">© 2023 </p>
+    </footer>
 
     <script type="module">
         const aiButton = document.getElementById("ai-button");

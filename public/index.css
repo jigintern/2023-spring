@@ -125,6 +125,7 @@ footer {
     color: #fff;
     padding: 20px;
     text-align: center;
+
     margin-top: 32px;
 }
 
@@ -144,7 +145,7 @@ nav ul li {
     font-size: 16px;
     font-weight: bold;
   }
-
+  
   .fab {
     position: fixed;
     bottom: 20px;
@@ -169,4 +170,3 @@ nav ul li {
   .fab:hover {
     background-color: orange;
   }
-  
