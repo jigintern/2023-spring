@@ -1,5 +1,5 @@
 // deno-lint-ignore-file
-import {createClient} from "https://esm.sh/@supabase/supabase-js";
+import {createClient} from "https://esm.sh/@supabase/supabase-js@2.11.0";
 import {serve} from "https://deno.land/std@0.138.0/http/server.ts";
 import {serveDir} from "https://deno.land/std@0.138.0/http/file_server.ts";
 import "https://deno.land/std@0.167.0/dotenv/load.ts";
