@@ -6,6 +6,7 @@ import {serve} from "https://deno.land/std@0.180.0/http/server.ts";
 import {v4 as uuidv4} from "https://deno.land/std@0.180.0/uuid/mod.ts";
 
 const posts = [];
+let i = 0;
 
 serve(async (req) => {
     console.log(await config());
@@ -55,11 +56,12 @@ serve(async (req) => {
         // リクエストボディを取得する
         const requestJson = await req.json();
         //ランダムなIDを生成する
-        const id = uuidv4();
+        i++;
+        const id = i;
         //タイトル
         const title = requestJson.title;
         //日付
-        const date = requestJson.data;
+        const date = requestJson.date;
         //名前
         const name = requestJson.name;
         //詳細
@@ -69,6 +71,8 @@ serve(async (req) => {
         // リクエストボディをpostsに追加する
         posts.push({id, title, date, name, description, participants});
         // 更新されたpostsを返す
+        console.log(posts);
+        console.log("投稿完了");
 
         return new Response(JSON.stringify(posts), {
                 headers: {

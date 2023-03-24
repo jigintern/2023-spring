@@ -88,10 +88,10 @@
     <script type="module">
         const aiButton = document.getElementById("ai-button");
         const keyWords = document.getElementById("key-word");
-        const date = document.getElementById("date");
-        const title = document.getElementById("title");
-        const name = document.getElementById("name");
-        const detail = document.getElementById("detail");
+        const dateInput = document.getElementById("date");
+        const titleInput = document.getElementById("title");
+        const nameInput = document.getElementById("name");
+        const detailInput = document.getElementById("detail");
         const overView = document.getElementById("overview");
 
         // AIおまかせボタンのクリックイベント
@@ -99,8 +99,8 @@
         aiButton.addEventListener("click", async(e) => {
             e.preventDefault();
             if (keyWords.value && overView.value) {
-                detail.setAttribute("disabled", true);
-                detail.value = "考え中。。。。。";
+                detailInput.setAttribute("disabled", true);
+                detailInput.value = "考え中。。。。。";
                 const keyword = keyWords.value;
                 const overview = overView.value;
                 const resp = await fetch("/translate-ai", {  
@@ -110,10 +110,9 @@
                 });
                 console.log("実行完了しました.");
                 const detailText = await resp.text();
-                console.log(detailText);
-                detail.value = "";
-                detail.value = detailText;
-                detail.removeAttribute("disabled");
+                detailInput.value = "";
+                detailInput.value = detailText;
+                detailInput.removeAttribute("disabled");
             }else{
                 alert("aiに文章生成を頼むときはキーワードと概要のどちらも入力してください");
             }
@@ -121,10 +120,26 @@
 
 
         //必要事項が入っているかいないかをチェック
-        document.querySelector("#send-button").onclick = (e) => {
+        document.querySelector("#send-button").onclick = async(e) => {
+            const title = titleInput.value;
+            const name = nameInput.value;
+            const date = dateInput.value;
+            const description = detailInput.value;
+            //ボタンを押したときに自動リロードされないようにした
+            //serverとの兼ね合いでここではdescription = detailである
             e.preventDefault();
-            if (date.value && title.value && name.value && detail.value) {
-                console.log("ありました");
+            if (date && title && name && detail) {
+                const resp = await fetch("/register-post", {  
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ title, name, date, description })
+                });
+                //一応空ににした。
+                titleInput.value = "";
+                nameInput.value = "";
+                dateInput.value = "";
+                detailInput.value = "";
+                console.log("実行完了しました.");
             } else {
                 alert("赤文字のところを全て入力してください");
             }
