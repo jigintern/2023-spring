@@ -32,7 +32,7 @@
         date: "2023/03/22",
         name: "田中太郎",
         description: "ここでパーティをします！",
-        participants: "0"
+        participants: "5"
     },
     {
         id: "2",
@@ -40,7 +40,7 @@
         date: "2023/03/23",
         name: "山田花子",
         description: "ここでパーティをします！",
-        participants: "0"
+        participants: "3"
     },
     {
         id: "3",
@@ -48,7 +48,7 @@
         date: "2023/03/24",
         name: "佐藤次郎",
         description: "ここでパーティをします！",
-        participants: "0"
+        participants: "4"
     }];
 
     //更新時にDBにリクエストしてデータをpostに追加する
@@ -84,10 +84,20 @@
         postDescription.classList.add("post-description");
         listItem.appendChild(postDescription);
 
+        //参加ボタン
         const joinButton = document.createElement("button");
         joinButton.textContent = "参加します";
         joinButton.classList.add("join-button");
         listItem.appendChild(joinButton);
+
+        //参加者数表示する要素
+        const participantCount = document.createElement("p");
+        participantCount.textContent = "参加者数: " + post.participants;
+        participantCount.classList.add("participant-count");
+        listItem.appendChild(participantCount);
+
+        // const participantCount = document.createElement("p");
+        // participantCount.textContent = "";
 
         joinButton.addEventListener("click", async () => {
             joinButton.style.backgroundColor = "green";
@@ -100,7 +110,13 @@
             })
 
             //更新されたPost一覧取得
-            posts = await response.json();
+            // posts = await response.json();
+            const data = await response.json();
+            posts = data.posts;
+            const post = posts.find(post => post.id === data.id);
+            const numParticipants = post.participants;
+
+            //参加者数表示
         });
 
         listItem.classList.add("post");
