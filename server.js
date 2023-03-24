@@ -63,6 +63,7 @@ serve(async (req) => {
         const requestJson = await req.json();
         const overview = requestJson.overview;
         const keyword = requestJson.keyword;
+        console.log("overview:" + overview);
         let resp = null;
         try {
             resp = await fetchChat(
