@@ -68,3 +68,50 @@ h1, h2 {
 .must {
     color: rgb(226, 62, 62);
 }
+
+@media (max-width:760px){
+    body {
+        font-size: 18px;
+    }
+
+    .form-table th {
+        display: block;
+        margin-left: 45px;
+        text-align: left;
+    }
+    
+    .form-table td {
+        display: block;
+        margin: 0 20px;
+    }
+    
+    .form-table label {
+        display: inline-block;
+        /* margin-bottom: 5px; */
+    }
+
+    .form-table td textarea {
+        width: 300px;
+    }
+    .input {
+        min-width: 300px;
+    }
+
+    .ai-button{
+        float: right;
+        margin-right: 20px;
+    }
+    h1 {
+        font-size: 28px;
+        line-height: 45px;
+        margin-bottom: 10px;
+        margin: 0 5px;
+    }
+    h2 {
+        font-size: 22px;
+        line-height: 24px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
