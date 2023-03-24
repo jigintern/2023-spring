@@ -18,6 +18,8 @@
     </p>
 </section>
 <section class="posts">
+    <a href="post.html">イベントを投稿する</a>
+    <a href="about.html">このサイトについて</a>
     <h2>最新のイベント</h2>
     <ul class="post-list"></ul>
 </section>
@@ -96,8 +98,6 @@
                         console.log("Data submitted successfully" + response);
                     })
                     .catch(error => console.error("Error submitting data:", error));
-
-                updatePosts(data);
             });
 
             listItem.classList.add("post");
